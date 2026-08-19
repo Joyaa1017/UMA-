@@ -1,0 +1,59 @@
+for debugging 
+
+            <!-- <?php echo '<pre>'; print_r($consumers); echo '</pre>'; ?> -->
+
+
+
+
+            
+
+
+            if ($admin && password_verify($password, $admin['admin_password'])) {
+    $_SESSION['admin_id'] = $admin['admin_id'];
+    $_SESSION['admin_username'] = $admin['admin_username'];
+
+    header("Location: super_admin_dashboard.php"); // Adjust this path if needed
+    exit;
+}
+
+
+var_dump($_POST);
+
+
+
+<table class="min-w-full bg-green">
+                    <thead style="background-color:rgb(255, 255, 255); color:#000000; font-size:14px;">
+                        <tr>
+                            <th class="py-2 px-4 border-b text-left" style="width: 20%;">Reporter</th>
+                            <th class="py-2 px-4 border-b text-left" style="width: 20%;">Reported Farmer</th>
+                            <th class="py-2 px-4 border-b text-left" style="width: 20%;">Reported Product</th>
+                            <th class="py-2 px-4 border-b text-left" style="width: 20%;">Reason</th>
+                            <th class="py-2 px-4 border-b text-left" style="width: 20%;">Custom Reason</th>
+                            <th class="py-2 px-4 border-b text-left" style="width: 20%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($reports as $report): ?>
+                            <tr>
+                                <td class="py-2 px-4 border-b" style="width: 10%; font-size:15px;"><?= htmlspecialchars($report['consumer_firstname'] . ' ' . $report['consumer_lastname']) ?></td>
+                                <td class="py-2 px-4 border-b" style="width: 10%; font-size:15px;"><?= htmlspecialchars($report['farmer_firstname'] . ' ' . $report['farmer_lastname']) ?></td>
+                                <td class="py-2 px-4 border-b" style="width: 10%; font-size:15px;"><?= htmlspecialchars($report['product_name']) ?></td>
+                                <td class="py-2 px-4 border-b" style="width: 10%; font-size:15px;"><?= htmlspecialchars($report['reason']) ?></td>
+                                <td class="py-2 px-4 border-b" style="width: 10%; font-size:15px;"><?= htmlspecialchars($report['custom_reason']) ?></td>
+                                <td class="py-2 px-4 border-b" style="width: 5%;">
+                                    <button class="edit" data-bs-toggle="modal" data-bs-target="#viewReportModal"
+                                        data-report-id="<?= htmlspecialchars($report['report_id'], ENT_QUOTES) ?>"
+                                        data-report-reporter="<?= htmlspecialchars($report['consumer_firstname'] . ' ' . $report['consumer_lastname'], ENT_QUOTES) ?>"
+                                        data-report-reported_farmer="<?= htmlspecialchars($report['farmer_firstname'] . ' ' . $report['farmer_lastname'], ENT_QUOTES) ?>"
+                                        data-report-reported_product="<?= htmlspecialchars($report['product_name'], ENT_QUOTES) ?>"
+                                        data-report-reason="<?= htmlspecialchars($report['reason'], ENT_QUOTES) ?>"
+                                        data-report-custom_reason="<?= htmlspecialchars($report['custom_reason'], ENT_QUOTES) ?>"
+                                        data-report-created="<?= htmlspecialchars($report['created_at'], ENT_QUOTES) ?>">
+                                        View
+                                    </button>
+
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
